@@ -1,7 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -22,6 +21,71 @@ file static class Program
         Application.SetCompatibleTextRenderingDefault(false);
         Application.Run(new Form1());
     }
+}
+
+/// <summary>
+/// Record holding employee data.
+/// </summary>
+internal sealed record Employee
+{
+    /// <summary>
+    /// Gets the ID of this employee.
+    /// </summary>
+    public int Id { get; }
+
+    /// <summary>
+    /// Gets the first name of this employee.
+    /// </summary>
+    public string FirstName { get; }
+
+    /// <summary>
+    /// Gets the last name of this employee.
+    /// </summary>
+    public string LastName { get; }
+
+    /// <summary>
+    /// Gets the hourly rate of this employee.
+    /// </summary>
+    internal decimal HourlyRate { get; }
+
+    /// <summary>
+    /// Gets the tax threshold for this employee.
+    /// </summary>
+    internal TaxThreshold TaxThreshold { get; }
+
+    /// <summary>
+    /// Initializes this employee record.
+    /// </summary>
+    /// <param name="id">The employee ID</param>
+    /// <param name="firstName">The employee first name</param>
+    /// <param name="lastName">The employee last name</param>
+    /// <param name="hourlyRate">The employee hourly rate</param>
+    /// <param name="taxThreshold">The employee tax threshold</param>
+    public Employee(int id, string firstName, string lastName, decimal hourlyRate, TaxThreshold taxThreshold)
+    {
+        Id = id;
+        FirstName = firstName;
+        LastName = lastName;
+        HourlyRate = hourlyRate;
+        TaxThreshold = taxThreshold;
+    }
+
+    public override string ToString() => $"{Id} - {FirstName} {LastName}";
+}
+
+/// <summary>
+/// Enum representing whether tax threshold should be taken into account.
+/// </summary>
+internal enum TaxThreshold
+{
+    /// <summary>
+    /// Tax threshold should NOT be taken into account.
+    /// </summary>
+    N,
+    /// <summary>
+    /// Tax threshold should be taken into account.
+    /// </summary>
+    Y
 }
 
 /// <summary>
@@ -56,7 +120,7 @@ file sealed class PayCalculatorWithThreshold : PayCalculator
 /// <summary>
 /// Extension methods for reading from and writing to CSV files.
 /// </summary>
-file static class CsvExtensions
+internal static class CsvExtensions
 {
     private static readonly CsvConfiguration csvConfiguration = new(CultureInfo.InvariantCulture)
     {
@@ -71,7 +135,7 @@ file static class CsvExtensions
     /// <returns>Records read from the CSV file as instances of <typeparamref name="T"/></returns>
     public static IList<T> ReadCsv<T>(this string filePath)
     {
-        using var reader = File.OpenText(filePath);
+        using var reader = File.OpenText($"Resources/{filePath}.csv");
         using var csv = new CsvReader(reader, csvConfiguration);
         return csv.GetRecords<T>().ToList();
     }

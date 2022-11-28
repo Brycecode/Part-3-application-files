@@ -13,6 +13,7 @@ internal partial class Form1 : Form
         // by reading the employee.csv file into a List of PaySlip objects, then binding this to the ListBox.
         // CSV file format: <employee ID>, <first name>, <last name>, <hourly rate>,<taxthreshold>
 
+        listBox1.DataSource = "employee".ReadCsv<Employee>();
     }
 
     private void Button1_Click(object sender, EventArgs e)
