@@ -1,16 +1,39 @@
 ﻿namespace OO_programming;
 
 /// <summary>
-/// Enum representing whether tax threshold should be taken into account.
+/// Class representing the tax threshold.
 /// </summary>
-internal enum TaxThreshold
+internal sealed record TaxThreshold
 {
     /// <summary>
-    /// Tax threshold should NOT be taken into account.
+    /// The tax lower bound.
     /// </summary>
-    N,
+    public decimal LowerBound { get; }
     /// <summary>
-    /// Tax threshold should be taken into account.
+    /// The tax upper bound.
     /// </summary>
-    Y
+    public decimal UpperBound { get; }
+    /// <summary>
+    /// Gets the coefficient A from the weekly tax owing formula.
+    /// </summary>
+    public decimal A { get; }
+    /// <summary>
+    /// Gets the coefficient B from the weekly tax owing formula.
+    /// </summary>
+    public decimal B { get; }
+
+    /// <summary>
+    /// Initializes this tax threshold record.
+    /// </summary>
+    /// <param name="lowerBound">The tax lower bound</param>
+    /// <param name="upperBound">The tax upper bound</param>
+    /// <param name="a">Coefficient A</param>
+    /// <param name="b">Coefficient B</param>
+    public TaxThreshold(decimal lowerBound, decimal upperBound, decimal a, decimal b)
+    {
+        LowerBound = lowerBound;
+        UpperBound = upperBound;
+        A = a;
+        B = b;
+    }
 }

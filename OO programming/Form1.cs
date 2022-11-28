@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace OO_programming;
 
 internal partial class Form1 : Form
 {
-    private EmployeePayReport report;
+    private PaySlip paySlip;
 
     public Form1()
     {
@@ -16,7 +18,7 @@ internal partial class Form1 : Form
         // by reading the employee.csv file into a List of PaySlip objects, then binding this to the ListBox.
         // CSV file format: <employee ID>, <first name>, <last name>, <hourly rate>,<taxthreshold>
 
-        listBox1.DataSource = "employee".ReadCsv<Employee>();
+        listBox1.DataSource = "employee".ReadCsv<Employee>().ToList();
     }
 
     private void Button1_Click(object sender, EventArgs e)
@@ -29,9 +31,9 @@ internal partial class Form1 : Form
         var hoursWorked = decimal.Parse(textBox1.Text.Trim(), CultureInfo.InvariantCulture);
         var calculator = PayCalculator.CreateNew(selectedEmployee, hoursWorked);
 
-        report = calculator.CreateReport();
+        paySlip = calculator.CreatePaySlip();
 
-        textBox2.Text = report.ToString();
+        textBox2.Text = paySlip.ToString();
 
         button2.Visible = true;
     }
@@ -43,6 +45,6 @@ internal partial class Form1 : Form
         // File naming convention: Pay_<full name>_<datetimenow>.csv
         // Data fields expected - EmployeeId, Full Name, Hours Worked, Hourly Rate, Tax Threshold, Gross Pay, Tax, Net Pay, Superannuation
 
-        $"Pay_{report.FullName}_{DateTime.UtcNow:yyyyMMddHHmmssfff}.csv".WriteCsv(report);
+        $"Pay_{paySlip.FullName}_{DateTime.UtcNow:yyyyMMddHHmmssfff}.csv".WriteCsv(paySlip);
     }
 }

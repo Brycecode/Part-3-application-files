@@ -33,7 +33,7 @@ internal sealed record Employee
     /// <summary>
     /// Gets the tax threshold for this employee.
     /// </summary>
-    internal TaxThreshold TaxThreshold { get; }
+    internal TaxThresholdOption TaxThreshold { get; }
 
     /// <summary>
     /// Initializes this employee record.
@@ -48,7 +48,7 @@ internal sealed record Employee
         string firstName,
         string lastName,
         decimal hourlyRate,
-        TaxThreshold taxThreshold)
+        TaxThresholdOption taxThreshold)
     {
         Id = id;
         FirstName = firstName;

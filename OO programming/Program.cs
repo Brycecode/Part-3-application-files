@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -39,7 +40,7 @@ internal static class CsvExtensions
     /// <typeparam name="T">The type to convert each CSV record to</typeparam>
     /// <param name="filePath">The CSV file path</param>
     /// <returns>Records read from the CSV file as instances of <typeparamref name="T"/></returns>
-    public static IList<T> ReadCsv<T>(this string filePath)
+    public static IEnumerable<T> ReadCsv<T>(this string filePath) where T : class
     {
         using var reader = File.OpenText($"Resources/{filePath}.csv");
         using var csv = new CsvReader(reader, csvConfiguration);
