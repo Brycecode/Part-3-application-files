@@ -6,6 +6,8 @@ namespace OO_programming;
 
 internal partial class Form1 : Form
 {
+    private EmployeePayReport report;
+
     public Form1()
     {
         InitializeComponent();
@@ -25,22 +27,11 @@ internal partial class Form1 : Form
 
         var selectedEmployee = (Employee)listBox1.SelectedItem;
         var hoursWorked = decimal.Parse(textBox1.Text.Trim(), CultureInfo.InvariantCulture);
-        var calculator = PayCalculator.CreateNew(selectedEmployee);
-        var grossPay = calculator.CalculatePay();
-        var tax = calculator.CalculateTax();
+        var calculator = PayCalculator.CreateNew(selectedEmployee, hoursWorked);
 
-        textBox2.Text =
-            $"""
-            ID: {selectedEmployee.Id}
-            Full Name: {selectedEmployee.FirstName} {selectedEmployee.LastName}
-            Hours Worked: {hoursWorked}
-            Hourly Rate: {selectedEmployee.HourlyRate}
-            Tax Threshold: ?
-            Gross Pay: {grossPay}
-            Tax: {tax}
-            Net Pay: {grossPay - tax}
-            Superannuation: {calculator.CalculateSuperannuation()}
-            """;
+        report = calculator.CreateReport();
+
+        textBox2.Text = report.ToString();
 
         button2.Visible = true;
     }
@@ -52,5 +43,6 @@ internal partial class Form1 : Form
         // File naming convention: Pay_<full name>_<datetimenow>.csv
         // Data fields expected - EmployeeId, Full Name, Hours Worked, Hourly Rate, Tax Threshold, Gross Pay, Tax, Net Pay, Superannuation
 
+        $"Pay_{report.FullName}_{DateTime.UtcNow:yyyyMMddHHmmssfff}.csv".WriteCsv(report);
     }
 }
