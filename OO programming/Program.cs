@@ -99,8 +99,20 @@ file sealed record PaySlip
 /// Base class to hold all Pay calculation functions
 /// Default class behaviour is tax calculated with tax threshold applied
 /// </summary>
-file abstract class PayCalculator
+internal abstract class PayCalculator
 {
+    internal abstract decimal CalculatePay();
+
+    internal abstract decimal CalculateTax();
+
+    internal abstract decimal CalculateSuperannuation();
+
+    internal static PayCalculator CreateNew(Employee employee) => employee.TaxThreshold switch
+    {
+        TaxThreshold.Y => new PayCalculatorWithThreshold(),
+        TaxThreshold.N => new PayCalculatorNoThreshold(),
+        _ => throw new InvalidOperationException(),
+    };
 }
 
 /// <summary>
@@ -108,6 +120,11 @@ file abstract class PayCalculator
 /// </summary>
 file sealed class PayCalculatorNoThreshold : PayCalculator
 {
+    internal override decimal CalculatePay() => 0;
+
+    internal override decimal CalculateSuperannuation() => 0;
+
+    internal override decimal CalculateTax() => 0;
 }
 
 /// <summary>
@@ -115,6 +132,11 @@ file sealed class PayCalculatorNoThreshold : PayCalculator
 /// </summary>
 file sealed class PayCalculatorWithThreshold : PayCalculator
 {
+    internal override decimal CalculatePay() => 0;
+
+    internal override decimal CalculateSuperannuation() => 0;
+
+    internal override decimal CalculateTax() => 0;
 }
 
 /// <summary>

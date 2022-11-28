@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace OO_programming;
@@ -22,6 +23,26 @@ internal partial class Form1 : Form
         // payment summary (textBox2) using the PaySlip and PayCalculatorNoThreshold
         // and PayCalculatorWithThresholds classes object and methods.
 
+        var selectedEmployee = (Employee)listBox1.SelectedItem;
+        var hoursWorked = decimal.Parse(textBox1.Text.Trim(), CultureInfo.InvariantCulture);
+        var calculator = PayCalculator.CreateNew(selectedEmployee);
+        var grossPay = calculator.CalculatePay();
+        var tax = calculator.CalculateTax();
+
+        textBox2.Text =
+            $"""
+            ID: {selectedEmployee.Id}
+            Full Name: {selectedEmployee.FirstName} {selectedEmployee.LastName}
+            Hours Worked: {hoursWorked}
+            Hourly Rate: {selectedEmployee.HourlyRate}
+            Tax Threshold: ?
+            Gross Pay: {grossPay}
+            Tax: {tax}
+            Net Pay: {grossPay - tax}
+            Superannuation: {calculator.CalculateSuperannuation()}
+            """;
+
+        button2.Visible = true;
     }
 
     private void Button2_Click(object sender, EventArgs e)
