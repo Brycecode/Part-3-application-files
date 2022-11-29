@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Tests;
 
 /// <summary>
-/// Tests for extension methods responsible for serialization and deserialization of CSV values.
+/// Unit tests for extension methods responsible for serialization and deserialization of CSV values.
 /// </summary>
 public sealed class CsvExtensionsTests
 {

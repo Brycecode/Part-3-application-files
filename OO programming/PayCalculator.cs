@@ -17,7 +17,7 @@ public abstract class PayCalculator
     private TaxThreshold GetTaxThreshold()
     {
         var amount = CalculatePay();
-        return taxThresholds.Single(tax => tax.LowerBound <= amount && amount <= tax.UpperBound);
+        return taxThresholds.First(tax => tax.LowerBound <= amount && amount <= tax.UpperBound);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public abstract class PayCalculator
         var taxThreshold = GetTaxThreshold();
         var x = (Math.Floor(CalculatePay()) + .99m);
         // ax - b
-        return taxThreshold.A * x - taxThreshold.B;
+        return (taxThreshold.A * x) - taxThreshold.B;
     }
 
     /// <summary>
