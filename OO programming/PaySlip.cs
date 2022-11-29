@@ -43,12 +43,46 @@ public sealed record PaySlip
     /// <summary>
     /// Gets the employee net pay.
     /// </summary>
-    public decimal NetPay => GrossPay - Tax;
+    public decimal NetPay { get; }
 
     /// <summary>
     /// Gets the employee superannuation.
     /// </summary>
     public decimal Superannuation { get; }
+
+    /// <summary>
+    /// Initializes this employee pay slip.
+    /// </summary>
+    /// <param name="id">The employee ID</param>
+    /// <param name="fullName">The employee full name</param>
+    /// <param name="hoursWorked">The employee hours worked</param>
+    /// <param name="hourlyRate">The employee hourly rate</param>
+    /// <param name="taxThreshold">The employee tax threshold</param>
+    /// <param name="grossPay">The employee gross pay</param>
+    /// <param name="tax">The employee tax amount</param>
+    /// <param name="netPay">The employee net pay</param>
+    /// <param name="superannuation">The employee superannuation</param>
+    public PaySlip(
+        int id,
+        string fullName,
+        decimal hoursWorked,
+        decimal hourlyRate,
+        decimal taxThreshold,
+        decimal grossPay,
+        decimal tax,
+        decimal netPay,
+        decimal superannuation)
+    {
+        Id = id;
+        FullName = fullName;
+        HoursWorked = hoursWorked;
+        HourlyRate = hourlyRate;
+        TaxThreshold = taxThreshold;
+        GrossPay = grossPay;
+        Tax = tax;
+        NetPay = netPay;
+        Superannuation = superannuation;
+    }
 
     /// <summary>
     /// Initializes this employee pay slip.
@@ -69,17 +103,18 @@ public sealed record PaySlip
         decimal taxThreshold,
         decimal grossPay,
         decimal tax,
-        decimal superannuation)
-    {
-        Id = id;
-        FullName = fullName;
-        HoursWorked = hoursWorked;
-        HourlyRate = hourlyRate;
-        TaxThreshold = taxThreshold;
-        GrossPay = grossPay;
-        Tax = tax;
-        Superannuation = superannuation;
-    }
+        decimal superannuation) :
+        this(
+            id,
+            fullName,
+            hoursWorked,
+            hourlyRate,
+            taxThreshold,
+            grossPay,
+            tax,
+            grossPay - tax,
+            superannuation)
+    { }
 
     public override string ToString() =>
         $"""

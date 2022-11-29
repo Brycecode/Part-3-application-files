@@ -8,6 +8,7 @@ namespace OO_programming;
 public partial class Form1 : Form
 {
     private PaySlip paySlip;
+    public string LastCsvFileExported { get; private set; }
 
     public Form1()
     {
@@ -43,7 +44,7 @@ public partial class Form1 : Form
         // calculated payment data into a csv file.
         // File naming convention: Pay_<full name>_<datetimenow>.csv
         // Data fields expected - EmployeeId, Full Name, Hours Worked, Hourly Rate, Tax Threshold, Gross Pay, Tax, Net Pay, Superannuation
-
-        $"Pay_{paySlip.FullName}_{DateTime.UtcNow:yyyyMMddHHmmssfff}.csv".WriteCsv(paySlip);
+        LastCsvFileExported = $"Pay_{paySlip.FullName}_{DateTime.UtcNow:yyyyMMddHHmmssfff}.csv";
+        LastCsvFileExported.WriteCsv(paySlip);
     }
 }
