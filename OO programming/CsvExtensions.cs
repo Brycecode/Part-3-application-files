@@ -10,7 +10,7 @@ namespace OO_programming;
 /// <summary>
 /// Extension methods for reading from and writing to CSV files.
 /// </summary>
-internal static class CsvExtensions
+public static class CsvExtensions
 {
     private static readonly CsvConfiguration csvConfiguration = new(CultureInfo.InvariantCulture)
     {
@@ -23,9 +23,9 @@ internal static class CsvExtensions
     /// <typeparam name="T">The type to convert each CSV record to</typeparam>
     /// <param name="filePath">The CSV file path</param>
     /// <returns>Records read from the CSV file as instances of <typeparamref name="T"/></returns>
-    public static IEnumerable<T> ReadCsv<T>(this string filePath) where T : class
+    public static IEnumerable<T> ReadCsv<T>(this string filePath, string prefix = "Resources/") where T : class
     {
-        using var reader = File.OpenText($"Resources/{filePath}.csv");
+        using var reader = File.OpenText($"{prefix}{filePath}.csv");
         using var csv = new CsvReader(reader, csvConfiguration);
         return csv.GetRecords<T>().ToList();
     }

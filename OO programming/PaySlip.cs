@@ -3,7 +3,7 @@
 /// <summary>
 /// Class a capture details accociated with an employee's pay slip record
 /// </summary>
-internal sealed record PaySlip
+public sealed record PaySlip
 {
     /// <summary>
     /// Gets the employee ID.
@@ -61,7 +61,7 @@ internal sealed record PaySlip
     /// <param name="grossPay">The employee gross pay</param>
     /// <param name="tax">The employee tax amount</param>
     /// <param name="superannuation">The employee superannuation</param>
-    internal PaySlip(
+    public PaySlip(
         int id,
         string fullName,
         decimal hoursWorked,

@@ -3,7 +3,7 @@
 /// <summary>
 /// Class representing the tax threshold.
 /// </summary>
-internal sealed record TaxThreshold
+public sealed record TaxThreshold
 {
     /// <summary>
     /// The tax lower bound.

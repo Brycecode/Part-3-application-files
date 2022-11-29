@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OO programming\OO programming.csproj" />
+  </ItemGroup>
+
 </Project>

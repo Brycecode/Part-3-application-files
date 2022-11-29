@@ -3,37 +3,33 @@
 /// <summary>
 /// Record holding employee data.
 /// </summary>
-internal sealed record Employee
+public sealed record Employee
 {
     /// <summary>
     /// Gets the ID of this employee.
     /// </summary>
     public int Id { get; }
 
-    /// <summary>
-    /// Gets the full name of this employee.
-    /// </summary>
-    public string FullName => $"{FirstName} {LastName}";
 
     /// <summary>
     /// Gets the first name of this employee.
     /// </summary>
-    internal string FirstName { get; }
+    public string FirstName { get; }
 
     /// <summary>
     /// Gets the last name of this employee.
     /// </summary>
-    internal string LastName { get; }
+    public string LastName { get; }
 
     /// <summary>
     /// Gets the hourly rate of this employee.
     /// </summary>
-    internal decimal HourlyRate { get; }
+    public decimal HourlyRate { get; }
 
     /// <summary>
     /// Gets the tax threshold for this employee.
     /// </summary>
-    internal TaxThresholdOption TaxThreshold { get; }
+    public TaxThresholdOption TaxThreshold { get; }
 
     /// <summary>
     /// Initializes this employee record.
@@ -57,5 +53,11 @@ internal sealed record Employee
         TaxThreshold = taxThreshold;
     }
 
-    public override string ToString() => $"{Id} - {FullName}";
+    /// <summary>
+    /// Gets the full name of this employee.
+    /// </summary>
+    /// <returns>The employee full name</returns>
+    public string GetFullName() => $"{FirstName} {LastName}";
+
+    public override string ToString() => $"{Id} - {GetFullName()}";
 }

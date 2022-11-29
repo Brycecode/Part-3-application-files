@@ -8,7 +8,7 @@ namespace OO_programming;
 /// Base class to hold all Pay calculation functions
 /// Default class behaviour is tax calculated with tax threshold applied
 /// </summary>
-internal abstract class PayCalculator
+public abstract class PayCalculator
 {
     private readonly Employee employee;
     private readonly decimal hoursWorked;
@@ -61,7 +61,7 @@ internal abstract class PayCalculator
     /// Creates a pay slip record for an employee.
     /// </summary>
     /// <returns>The pay slip record</returns>
-    internal PaySlip CreatePaySlip() => new(employee.Id, employee.FullName, hoursWorked, employee.HourlyRate, GetTaxThreshold().LowerBound, CalculatePay(), CalculateTax(), CalculateSuperannuation());
+    public PaySlip CreatePaySlip() => new(employee.Id, employee.GetFullName(), hoursWorked, employee.HourlyRate, GetTaxThreshold().LowerBound, CalculatePay(), CalculateTax(), CalculateSuperannuation());
 
     /// <summary>
     /// Creates a new pay calculator based on the tax threshold of the provided employee.
@@ -70,7 +70,7 @@ internal abstract class PayCalculator
     /// <param name="hoursWorked">The number of hours worked</param>
     /// <returns>The appropriate pay calculator</returns>
     /// <exception cref="InvalidOperationException">If the provided tax threshold option is not defined</exception>
-    internal static PayCalculator CreateNew(Employee employee, decimal hoursWorked) => employee.TaxThreshold switch
+    public static PayCalculator CreateNew(Employee employee, decimal hoursWorked) => employee.TaxThreshold switch
     {
         TaxThresholdOption.Y => new PayCalculatorWithThreshold(employee, hoursWorked, "taxrate-withthreshold".ReadCsv<TaxThreshold>().ToArray()),
         TaxThresholdOption.N => new PayCalculatorNoThreshold(employee, hoursWorked, "taxrate-nothreshold".ReadCsv<TaxThreshold>().ToArray()),
@@ -89,7 +89,7 @@ file sealed class PayCalculatorNoThreshold : PayCalculator
     /// <param name="employee">The employee</param>
     /// <param name="hoursWorked">The number of hours worked</param>
     /// <param name="taxThresholds">The tax threshold records</param>
-    internal PayCalculatorNoThreshold(Employee employee, decimal hoursWorked, IReadOnlyCollection<TaxThreshold> taxThresholds) : base(employee, hoursWorked, taxThresholds)
+    public PayCalculatorNoThreshold(Employee employee, decimal hoursWorked, IReadOnlyCollection<TaxThreshold> taxThresholds) : base(employee, hoursWorked, taxThresholds)
     {
     }
 }
@@ -105,7 +105,7 @@ file sealed class PayCalculatorWithThreshold : PayCalculator
     /// <param name="employee">The employee</param>
     /// <param name="hoursWorked">The number of hours worked</param>
     /// <param name="taxThresholds">The tax threshold records</param>
-    internal PayCalculatorWithThreshold(Employee employee, decimal hoursWorked, IReadOnlyCollection<TaxThreshold> taxThresholds) : base(employee, hoursWorked, taxThresholds)
+    public PayCalculatorWithThreshold(Employee employee, decimal hoursWorked, IReadOnlyCollection<TaxThreshold> taxThresholds) : base(employee, hoursWorked, taxThresholds)
     {
     }
 }

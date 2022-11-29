@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace OO_programming;
 
-internal partial class Form1 : Form
+public partial class Form1 : Form
 {
     private PaySlip paySlip;
 

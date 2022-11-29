@@ -1,10 +1,9 @@
-﻿using CsvHelper.TypeConversion;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace OO_programming;
 
-internal static class Program
+public static class Program
 {
     /// <summary>
     /// The main entry point for the application.
