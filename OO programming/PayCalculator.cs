@@ -61,7 +61,7 @@ public abstract class PayCalculator
     /// Creates a pay slip record for an employee.
     /// </summary>
     /// <returns>The pay slip record</returns>
-    public PaySlip CreatePaySlip() => new(employee.Id, employee.GetFullName(), hoursWorked, employee.HourlyRate, GetTaxThreshold().LowerBound, CalculatePay(), CalculateTax(), CalculateSuperannuation());
+    public PaySlip CreatePaySlip() => new(employee.Id, employee.GetFullName(), hoursWorked, employee.HourlyRate, employee.TaxThreshold, CalculatePay(), CalculateTax(), CalculateSuperannuation());
 
     /// <summary>
     /// Creates a new pay calculator based on the tax threshold of the provided employee.

@@ -28,7 +28,7 @@ public sealed record PaySlip
     /// <summary>
     /// Gets the employee tax threshold.
     /// </summary>
-    public decimal TaxThreshold { get; }
+    public TaxThresholdOption TaxThreshold { get; }
 
     /// <summary>
     /// Gets the employee gross pay.
@@ -67,7 +67,7 @@ public sealed record PaySlip
         string fullName,
         decimal hoursWorked,
         decimal hourlyRate,
-        decimal taxThreshold,
+        TaxThresholdOption taxThreshold,
         decimal grossPay,
         decimal tax,
         decimal netPay,
@@ -100,7 +100,7 @@ public sealed record PaySlip
         string fullName,
         decimal hoursWorked,
         decimal hourlyRate,
-        decimal taxThreshold,
+        TaxThresholdOption taxThreshold,
         decimal grossPay,
         decimal tax,
         decimal superannuation) :
@@ -122,7 +122,7 @@ public sealed record PaySlip
         Full Name: {FullName}
         Hours Worked: {HoursWorked:0.00}
         Hourly Rate: ${HourlyRate:0.00}
-        Tax Threshold: ${TaxThreshold:0.00}
+        Tax Threshold: {TaxThreshold}
         Gross Pay: ${GrossPay:0.00}
         Tax: ${Tax:0.00}
         Net Pay: ${NetPay:0.00}

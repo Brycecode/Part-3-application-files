@@ -19,7 +19,7 @@ public sealed class PayCalculatorTests
     public void PayCalculator_CalculatesPaySlip_WithTaxThreshold()
     {
         const decimal grossPay = 960m;
-        const decimal taxThreshold = 865m;
+        const TaxThresholdOption taxThreshold = TaxThresholdOption.Y;
         const decimal tax = 147.924323m;
         const decimal superannuation = 100.8m;
 
@@ -42,7 +42,7 @@ public sealed class PayCalculatorTests
     public void PayCalculator_CalculatesPaySlip_NoTaxThreshold()
     {
         const decimal grossPay = 1080m;
-        const decimal taxThreshold = 932m;
+        const TaxThresholdOption taxThreshold = TaxThresholdOption.N;
         const decimal tax = 311.02835m;
         const decimal superannuation = 113.4m;
 
